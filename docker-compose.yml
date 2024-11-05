@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  bot:
+    container_name: bot
+    build: .
+    command: sh -c "python -m bot"
+
+    env_file:
+      - .env
+
+
+    restart: unless-stopped
+#    volumes:
+#      - .:/app
+
+
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${PG_PASS}
+      POSTGRES_DB: postgres
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "6423:5432"
+
+volumes:
+  postgres_data:
+    driver: local
+
+
+
