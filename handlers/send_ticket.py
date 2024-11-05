@@ -53,7 +53,7 @@ async def finaly_change_email(message: Message, state: FSMContext, session: Asyn
     await message.answer('Почта изменена', reply_markup=cmd_start_k())
 
 
-@router.message(Ticket.set_email)
+
 @router.callback_query(Ticket.set_email)
 async def set_category_callback(callback: CallbackQuery, state: FSMContext):
     if 'email_data' in callback.data:
@@ -68,7 +68,7 @@ async def set_category_callback(callback: CallbackQuery, state: FSMContext):
         await state.set_state(Ticket.set_category)
         await callback.message.answer('Укажите категорию', reply_markup=set_category_k())
 
-
+@router.message(Ticket.set_email)
 async def set_category_message(message: Message, state: FSMContext, session: AsyncSession):
 
 

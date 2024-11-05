@@ -63,11 +63,12 @@ def cmd_start_k() -> ReplyKeyboardMarkup:
 
     return kb.as_markup(resize_keyboard=True)
 def create_ticket_k(email: str):
-    rows = [[InlineKeyboardButton(text='Пропустить', callback_data='skip_email')]]
+    rows = []
     # print(email, type(email))
     if "None" not in email and email is not False:
         rows.append([InlineKeyboardButton(text=email, callback_data=f'email_data {email}')])
         rows.append([InlineKeyboardButton(text="Сменить почту", callback_data='change_email')])
+    rows.append([InlineKeyboardButton(text='Пропустить', callback_data='skip_email')])
     return InlineKeyboardMarkup(inline_keyboard=rows)
 def set_category_k():
     rows = [[InlineKeyboardButton(text=item['name'], callback_data=str(item['id']))] for item in category]
