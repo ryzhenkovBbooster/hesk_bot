@@ -1,4 +1,7 @@
 import requests
+import os
+from dotenv import load_dotenv
+
 from aiogram import Router, F
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
@@ -11,7 +14,10 @@ from service.submit_ticket_service import get_email_to_user, update_email_to_use
 
 router = Router()
 
+load_dotenv()
 
+HESK_USERNAME = os.getenv("HESK_USERNAME")
+HESK_PASSWORD = os.getenv("HESK_PASSWORD")
 
 @router.message(Command('start', prefix='!/') )
 async def cmd_start(message: Message, state: FSMContext):
@@ -126,8 +132,8 @@ def send_to_hesk(state_data: dict, message):
         "user-agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
     }
     data = {
-        "user": 'k.ryzhenkov',
-        "pass": 'KLhgolweihg&^$1i990',
+        "user": HESK_USERNAME,
+        "pass": HESK_PASSWORD,
         'remember_user': 'NOTHANKS',
         "a": "do_login"
     }
